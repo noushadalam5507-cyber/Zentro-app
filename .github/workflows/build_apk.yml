@@ -16,8 +16,7 @@ jobs:
 
       - name: Unzip project files
         run: |
-          unzip zentro_flutter_3_32_final_clean_gradle_fixed.zip
-          ls -la
+          unzip -o zentro_flutter_3.32_final_clean_gradle_fixed.zip
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -32,8 +31,8 @@ jobs:
 
       - name: Force Clean and Override Kotlin Version
         run: |
+          find . -type f \( -name "*.gradle" -o -name "*.kts" \) -exec sed -i 's/version "2.1.0"/version "1.9.24"/g' {} +
           find . -type f \( -name "*.gradle" -o -name "*.kts" \) -exec sed -i "s/version '2.1.0'/version '1.9.24'/g" {} +
-          find . -type f \( -name "*.gradle" -o -name "*.kts" \) -exec sed -i "s/version(\"2.1.0\")/version(\"1.9.24\")/g" {} +
 
       - name: Clean Flutter Project
         run: |
@@ -45,7 +44,7 @@ jobs:
           flutter build apk --release --no-pub
 
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/abstract/upload-artifact@v4
         with:
           name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
