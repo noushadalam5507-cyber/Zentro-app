@@ -30,9 +30,10 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Fix Kotlin Version
+      - name: Fix Kotlin Version Everywhere
         run: |
-          find . -name "build.gradle" -exec sed -i "s/version '2.1.0'/version '1.9.24'/g" {} +
+          find . -type f -exec sed -i "s/version '2.1.0'/version '1.9.24'/g" {} +
+          find . -type f -exec sed -i "s/id 'org.jetbrains.kotlin.android' version '2.1.0'/id 'org.jetbrains.kotlin.android' version '1.9.24'/g" {} +
 
       - name: Install dependencies
         run: flutter pub get
