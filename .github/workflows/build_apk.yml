@@ -16,7 +16,7 @@ jobs:
 
       - name: Unzip project files
         run: |
-          unzip -o zentro_flutter_3.32_final_clean_gradle_fixed.zip
+          unzip -o zentro_flutter_3.32_final_clean_gradle_file
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
