@@ -1,4 +1,4 @@
-Flutter Build APK from Zip
+name: Flutter Build APK from Zip
 
 on:
   push:
