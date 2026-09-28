@@ -1,4 +1,4 @@
-name: Flutter Build APK from Zip
+: Flutter Build APK from Zip
 
 on:
   push:
@@ -29,6 +29,11 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+
+      - name: Fix Kotlin Gradle Version Issues
+        run: |
+          find . -name "build.gradle" -exec sed -i "s/version '2.1.0'/version '1.9.20'/g" {} +
+          find . -name "build.gradle" -exec sed -i "s/ext.kotlin_version = '2.1.0'/ext.kotlin_version = '1.9.20'/g" {} +
 
       - name: Install dependencies
         run: |
