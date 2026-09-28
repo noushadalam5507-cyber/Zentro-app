@@ -32,11 +32,12 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Force Clean and Override Kotlin Version
+      - name: Patch Gradle and Kotlin Version Conflicts
         run: |
           cd ${{ env.PROJECT_PATH }}
-          find . -type f \( -name "*.gradle" -o -name "*.kts" \) -exec sed -i 's/version "2.1.0"/version "1.9.24"/g' {} +
-          find . -type f \( -name "*.gradle" -o -name "*.kts" \) -exec sed -i "s/version '2.1.0'/version '1.9.24'/g" {} +
+          # जहाँ भी kotlin.android प्लगइन वर्ज़न के साथ है, उसका वर्ज़न हटाकर डिफ़ॉल्ट सेट करना
+          find . -type f \( -name "*.gradle" -o -name "*.kts" \) -exec sed -i 's/id "org.jetbrains.kotlin.android" version "[^"]*"/id "org.jetbrains.kotlin.android"/g' {} +
+          find . -type f \( -name "*.gradle" -o -name "*.kts" \) -exec sed -i "s/id 'org.jetbrains.kotlin.android' version '[^']*'/id 'org.jetbrains.kotlin.android'/g" {} +
 
       - name: Build Flutter Project
         run: |
@@ -49,4 +50,4 @@ jobs:
         with:
           name: release-apk
           path: |
-            ${{ env.PROJECT_PATH }}/build/app/outputs/flutter-apk/app-release.apk
+            temp_project/**/build/app/outputs/flutter-apk/app-release.apk
