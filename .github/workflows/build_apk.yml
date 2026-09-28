@@ -32,16 +32,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd zentro_flutter_3_32_final_clean_gradle_fixed
           flutter pub get
 
       - name: Build APK
         run: |
-          cd zentro_flutter_3_32_final_clean_gradle_fixed
           flutter build apk --release
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
-          path: zentro_flutter_3_32_final_clean_gradle_fixed/build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
