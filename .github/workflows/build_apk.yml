@@ -1,4 +1,4 @@
-name: Flutter Build APK from Zip
+name: Flutter Build APK
 
 on:
   push:
@@ -13,10 +13,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Unzip project files
-        run: |
-          unzip -o zentro_flutter_3.32_final_clean_gradle_file
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
